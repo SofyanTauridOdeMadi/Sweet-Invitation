@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Invitations</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef&family=Playfair+Display:wght@400;700&display=swap');
+    
+    :root {
+      --primary-color: #d81b60;
+      --secondary-color: #f06292;
+      --accent-color: #f8bbd0;
+      --gold: #d4af37;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Cambria', serif;
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+      color: #33404F;
+      text-align: center;
+    }
+    
+    .container {
+      padding: 2.5rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(216, 27, 96, 0.3);
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .border-frame {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border: 2px solid rgba(216, 27, 96, 0.4);
+      border-radius: 12px;
+      pointer-events: none;
+      animation: borderPulse 4s infinite alternate;
+    }
+    
+    @keyframes borderPulse {
+      0% { border-color: rgba(216, 27, 96, 0.2); }
+      100% { border-color: rgba(216, 27, 96, 0.6); }
+    }
+    
+    .countdown {
+      font-family: 'Lateef', serif;
+      font-size: 2.7rem;
+      color: var(--primary-color);
+      margin: 0.5rem 0 1.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      animation: glow 2s infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% { border-color: rgba(216, 27, 96, 0.2); }
+      100% { border-color: rgba(216, 27, 96, 0.6); }
+    }
+    
+    .word {
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      color: #555;
+      font-style: italic;
+      line-height: 1.7;
+    }
+    
+    .title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+      font-weight: 400;
+    }
+    
+    .event-title {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin: 0.5rem 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: titleFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes titleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    .people-name {
+      font-size: 2.4rem;
+      color: var(--secondary-color);
+      margin: 1rem 0;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      font-family: 'Amiri', serif;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .people-name:after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+      animation: underlineExpand 3s ease infinite;
+    }
+    
+    @keyframes underlineExpand {
+      0%, 100% { width: 0; left: 50%; }
+      50% { width: 80%; left: 10%; }
+    }
+    
+    .parents {
+      margin: 1rem 0;
+      color: #444;
+      font-size: 1.1rem;
+    }
+    
+    .parents-name {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .people-photo-container {
+      position: relative;
+      margin: 1.5rem auto;
+      width: 250px;
+      height: 250px;
+    }
+    
+    .people-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      animation: pulseGlow 4s infinite alternate;
+    }
+    
+    @keyframes pulseGlow {
+      0% { border-color: rgba(216, 27, 96, 0.2); }
+      100% { border-color: rgba(216, 27, 96, 0.6); }
+    }
+    
+    .photo-frame {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      border-radius: 50%;
+      border: 2px dashed var(--accent-color);
+      animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .info-container {
+      margin: 1 rem 0;
+      background-color: rgba(255, 0, 93, 0.124);
+      padding: 1 rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--secondary-color);
+      animation: slideIn 1s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .info {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      color: #33404F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    
+    .info-icon {
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+      60% { transform: translateY(-3px); }
+    }
+    
+    .rsvp-button {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 12px 28px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s;
+      font-weight: 700;
+      box-shadow: 0 4px 15px  rgba(216, 27, 96, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .rsvp-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px  rgba(216, 27, 96, 0.2);
+    }
+    
+    .rsvp-button:after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 20%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(30deg);
+      animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+      from { left: -60%; }
+      to { left: 150%; }
+    }
+    
+    .card-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      background-color:  rgba(255, 0, 93, 0.124);
+      border-radius: 8px;
+    }
+    
+    .card-title {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.8rem;
+    }
+    
+    .card {
+      font-style: italic;
+      color: #444;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+    
+    @keyframes twinkle {
+      from { opacity: 0.7; text-shadow: 0 0 5px rgba(216, 27, 96, 0.2); }
+      to { opacity: 1; text-shadow: 0 0 15px rgba(216, 27, 96, 0.6); }
+    }
+    
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+    }
+    
+    .floating-clouds {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .cloud {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+    }
+    
+    .cloud-1 {
+      width: 60px;
+      height: 20px;
+      top: 10%;
+      left: 10%;
+      animation: floatCloud 30s linear infinite;
+    }
+    
+    .cloud-2 {
+      width: 40px;
+      height: 15px;
+      top: 20%;
+      right: 10%;
+      animation: floatCloud 25s linear infinite reverse;
+    }
+    
+    .cloud-3 {
+      width: 30px;
+      height: 10px;
+      bottom: 15%;
+      left: 15%;
+      animation: floatCloud 35s linear infinite;
+    }
+    
+    @keyframes floatCloud {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(calc(100% + 100px)); }
+    }
+    
+    .cloud:before, .cloud:after {
+      content: "";
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    
+    .cloud:before {
+      width: 50%;
+      height: 100%;
+      top: -50%;
+      left: 25%;
+    }
+    
+    .cloud:after {
+      width: 50%;
+      height: 100%;
+      top: -30%;
+      right: 10%;
+    }
+    
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 1rem;
+        margin: 1rem 0.5rem;
+      }
+      
+      .countdown {
+        font-size: 2rem;
+      }
+      
+      .people-name {
+        font-size: 2rem;
+      }
+      
+      .event-title {
+        font-size: 1.5rem;
+      }
+      
+      .people-photo-container {
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    audio {
+      width: 100%;
+      max-width: 300px;
+      margin-top: 1.5rem;
+      border-radius: 12px;
+    }
+
+  </style>
+</head>
+<body>
+  <audio id="bg-music" controls autoplay loop style="margin-top: 1rem;">
+    <source src="Cinnamon_Girl.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung elemen audio.
+  </audio>
+  <div class="container">
+    <div class="border-frame"></div>
+    <div class="floating-clouds">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+    </div>
+    <div class="content">
+      <div class="event-title">Sweet SevenTeen</div>
+      
+      <div class="word">Hi teman-teman dan keluarga tersayang, we’re so happy to invite you to celebrate the special day of Ade Tiara Qaliyah Matahari!🎉 Acara ulang tahun ini bakal jadi momen penuh tawa, cinta, and lots of sweet memories — so we really hope you can come and join us. Your presence will make the day even more special, so jangan lupa datang ya! Let’s have fun and make beautiful moments together! 💖</div>
+   
+      <div class="parents">
+        Yang Lahir pada<br>
+        <span class="parents-name">13 April 2008</span>
+      </div>
+      <div class="parents">
+        Putri Pertama dari Pasangan<br>
+        <span class="parents-name">Bakhtiar R &amp; Masnawar</span>
+      </div>
+      
+      <div class="people-photo-container">
+        <div class="photo-frame"></div>
+        <img class="people-photo" src="Tiara.jpeg" alt="Foto">
+      </div>
+
+      <div class="people-name">Ade Tiara Qaliyah Matahari</div>
+      
+      <div class="card-selection" style="margin-top: 2rem;">
+        <h2 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.5rem;">Lokasi Acara</h2>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254294.2597239231!2d119.13656339453125!3d-5.207917999999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee39ba9aa69fd%3A0x6d88506d950aab68!2sTOKO%20TIARA!5e0!3m2!1sid!2sid!4v1744095408943!5m2!1sid!2sid"
+          width="100%"
+          height="250"
+          style="border:0; border-radius: 12px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      
+      <div class="card-selection" style="margin-top: 2rem;">
+        <h2 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.5rem;">Waktu</h2>
+        <div class="card">
+          Hari Minggu, 13 April 2025 Jam 16:00 WITA 💖
+        </div>
+      </div>
+
+      <div id="countdown" class="countdown"><span id="timer"></span></div>
+
+      <div class="info-container">
+        <div class="info">
+          <span class="info-icon">👚</span> Dresscode Pink / Pastel
+        </div>
+      </div>
+      
+      <a class="rsvp-button" href="https://wa.me/6282320577639?text=Assalamu'alaikum%2C%20kami%20akan%20hadir.">Konfirmasi Kehadiran</a>
+      
+      <div class="footer">
+        “Kehadiran dan doa Anda adalah hadiah terindah. Jazakumullahu khairan katsiran.”<br><br>
+        <em>Wassalamu'alaikum Warahmatullahi Wabarakatuh</em>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Countdown Timer
+    const timerEl = document.getElementById('timer');
+    const eventDate = new Date('April 13, 2025 16:00:00').getTime();
+    
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+    
+      if (diff <= 0) {
+        clearInterval(countdown);
+        timerEl.innerHTML = "Acara Dimulai!";
+      } else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+        timerEl.innerHTML = `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+      }
+    }, 1000);
+    
+    // Confetti (menggunakan canvas-confetti)
+    (function () {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+      script.onload = () => {
+        setInterval(() => {
+          confetti({
+            particleCount: 50,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff4081', '#f8bbd0', '#ffd1dc', '#fff'],
+          });
+        }, 3000);
+      };
+      document.head.appendChild(script);
+    })();
+    </script>
+</body>
+</html>
